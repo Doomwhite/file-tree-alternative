@@ -11,7 +11,7 @@ type TreeProps = {
     open?: boolean;
     content?: string;
     onClick?: Function;
-    onDoubleClick: Function;
+    onDoubleClick: (folder: TFolder) => void;
     onContextMenu?: Function;
     type?: any;
     style?: any;
@@ -77,8 +77,22 @@ export default function Tree(props: TreeProps) {
     const folderContextMenuEvent = () => props.onContextMenu();
 
     const folderNameDoubleClickEvent = (ev: React.MouseEvent) => {
-        setOpen(true);
-        props.onDoubleClick();
+        if (props.children) {  // Only toggle if folder has children
+            const newOpenState = !open;
+            setOpen(newOpenState);
+
+            // Update the global openFolders state
+            if (newOpenState) {
+                setOpenFolders([...openFolders, props.folder.path]);
+            } else {
+                const newOpenFolders = openFolders.filter(
+                    (openFolder) => props.folder.path !== openFolder
+                );
+                setOpenFolders(newOpenFolders);
+            }
+        }
+        // Call the prop handler with the folder
+        // props.onDoubleClick(props.folder);
     };
 
     // --> Icon

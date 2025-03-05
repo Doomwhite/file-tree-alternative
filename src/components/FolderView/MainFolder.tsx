@@ -133,7 +133,11 @@ export function MainFolder(props: FolderProps) {
     };
 
     const handleFolderNameDoubleClick = (folder: TFolder) => {
-        if (!folder.isRoot()) focusOnFolder(folder.parent);
+        // Since Tree now handles the toggling, we can keep this as is
+        // or remove it if we only want toggling behavior
+        // if (!folder.isRoot()) {
+        //     focusOnFolder(folder.parent);
+        // }
     };
 
     let folderActionItemSize = 22;
