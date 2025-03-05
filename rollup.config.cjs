@@ -5,6 +5,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 // import million from 'million/compiler';
 import { env } from 'process';
+require('dotenv').config();
 
 const isProd = env.NODE_ENV === 'production';
 
